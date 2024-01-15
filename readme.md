@@ -19,4 +19,4 @@ to dos:
  - make ollamastartup more robust (test model inference after running pull instructions)
  - setup ollama to wait for ollamastartup to exit 
  - setup ollama service to route through an extension like /ollm/*
-
+ - generate kubernetes manifest (lookup Kompose)
