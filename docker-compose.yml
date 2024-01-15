@@ -1,0 +1,32 @@
+services:
+  ollama: 
+    build: 
+        dockerfile: Dockerfile.ollama
+    container_name: ollama
+    image: ollama_local
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu]
+
+  ollamastartup:
+    build: 
+        dockerfile: Dockerfile.ollamastartup
+    depends_on: 
+        - ollama
+    restart: "no"
+
+  nginx:
+    build:
+        dockerfile: Dockerfile.reverseproxy
+    container_name: reverseproxy
+    image: nginx_local
+    ports: 
+        - "80:80"
+        - "443:443"
+    environment:
+        BASIC_USERNAME: admin
+        BASIC_PASSWORD: admin

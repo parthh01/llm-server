@@ -1,0 +1,6 @@
+FROM ollama/ollama:0.1.20
+
+
+ENTRYPOINT ["/bin/ollama"]
+CMD [ "pull","phi"]
+CMD ["serve"]

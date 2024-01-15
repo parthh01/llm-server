@@ -1,0 +1,7 @@
+FROM python:slim
+
+
+RUN apt-get -y update; apt-get -y install curl
+COPY ./ollama_startup.sh ./
+
+ENTRYPOINT ["sh","ollama_startup.sh"]
