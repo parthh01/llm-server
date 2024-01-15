@@ -1,7 +1,9 @@
 FROM nginx:alpine
  
+ARG BASIC_USERNAME
+ARG BASIC_PASSWORD
 COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN apk update && apk add bash && apk add apache2-utils
 
-RUN htpasswd -c -b /etc/nginx/.htpasswd admin admin
+RUN htpasswd -c -b /etc/nginx/.htpasswd $BASIC_USERNAME $BASIC_PASSWORD

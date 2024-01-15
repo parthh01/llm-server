@@ -4,13 +4,13 @@ services:
         dockerfile: Dockerfile.ollama
     container_name: ollama
     image: ollama_local
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - driver: nvidia
-            count: 1
-            capabilities: [gpu]
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #       - driver: nvidia
+    #         count: 1
+    #         capabilities: [gpu]
 
   ollamastartup:
     build: 
@@ -22,11 +22,14 @@ services:
   nginx:
     build:
         dockerfile: Dockerfile.reverseproxy
+        args:
+          BASIC_USERNAME: ${BASIC_USERNAME}
+          BASIC_PASSWORD: ${BASIC_PASSWORD}
     container_name: reverseproxy
     image: nginx_local
     ports: 
         - "80:80"
         - "443:443"
-    environment:
-        BASIC_USERNAME: admin
-        BASIC_PASSWORD: admin
+    # environment:
+    #     BASIC_USERNAME: admin
+    #     BASIC_PASSWORD: admin
