@@ -7,10 +7,7 @@ prerequisites:
 
 
 steps to start: 
- 1. `docker-compose down --remove-orphans`
- 2. `docker-compose build` 
- 3. `docker-compose up -d`
-
+ 1. `sh restart_server.sh`
 
 to dos: 
  - ollamastartup to pull multiple models 
