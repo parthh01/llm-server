@@ -6,14 +6,15 @@ prerequisites:
   - Docker engine 
 
 
-steps to start: 
- 1. `sh restart_server.sh`
+steps to start:
+ 1. populate .env file 
+ 2. `sh restart_docker.sh`
 
 to dos: 
  - ollamastartup to pull multiple models 
- - setup service + corresponding startup script to allow creation of new users (basic auth) 
+ - setup webui + litellm to allow creation of new users (basic auth) 
  - Dockerfile arch sniffing for Nvidia GPU specific instructions in Dockerfile (currently just uncommented out) 
  - make ollamastartup more robust (test model inference after running pull instructions)
  - setup ollama to wait for ollamastartup to exit 
- - setup ollama service to route through an extension like /ollm/*
+ - ~~setup ollama service to route through an extension like /ollm/~~
  - generate kubernetes manifest (lookup Kompose)
