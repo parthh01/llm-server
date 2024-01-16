@@ -1,3 +1,4 @@
+version: "3.9"
 services:
   ollama: 
     build: 
@@ -11,14 +12,34 @@ services:
     #       - driver: nvidia
     #         count: 1
     #         capabilities: [gpu]
-
+  
+  postgres:
+      image: postgres:14-alpine
+      volumes:
+        - ~/apps/postgres:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_PASSWORD=${PGPASSWORD}
+        - POSTGRES_USER=${PGUSER}
+        - POSTGRES_DB=${PGDB}
   ollamastartup:
     build: 
         dockerfile: Dockerfile.ollamastartup
     depends_on: 
         - ollama
     restart: "no"
-
+  litellm:
+    env_file: .env
+    depends_on: 
+        - postgres
+    build: 
+        dockerfile: Dockerfile.litellm
+    ports:
+      - "8000:8000" # Map the container port to the host, change the host port if necessary
+    volumes:
+      - ./.env:/app/.env
+    # You can change the port or number of workers as per your requirements or pass any new supported CLI augument. Make sure the port passed here matches with the container port defined above in `ports` value
+    environment:
+      - DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@postgres:5432/${PGDB}
   nginx:
     build:
         dockerfile: Dockerfile.reverseproxy

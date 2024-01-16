@@ -1,0 +1,6 @@
+FROM ghcr.io/berriai/litellm:main-v1.16.13
+
+COPY .env /app/.env
+COPY litellm_config.yaml /app/litellm_config.yaml
+COPY start_litellm.sh /app/start_litellm.sh
+ENTRYPOINT ["sh","start_litellm.sh"]
