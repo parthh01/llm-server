@@ -16,7 +16,7 @@ services:
   postgres:
       image: postgres:14-alpine
       volumes:
-        - ~/apps/postgres:/var/lib/postgresql/data
+        - litellmpg:/var/lib/postgresql/data
       environment:
         - POSTGRES_PASSWORD=${PGPASSWORD}
         - POSTGRES_USER=${PGUSER}
@@ -40,6 +40,14 @@ services:
     # You can change the port or number of workers as per your requirements or pass any new supported CLI augument. Make sure the port passed here matches with the container port defined above in `ports` value
     environment:
       - DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@postgres:5432/${PGDB}
+  webui: 
+    image: ghcr.io/ollama-webui/ollama-webui:main
+    volumes: 
+      - webui:/app/backend/data
+    environment:
+      - OPENAPI_BASE_URL:http://litellm:8000
+    ports:
+      - 8080
   nginx:
     build:
         dockerfile: Dockerfile.reverseproxy
@@ -54,3 +62,6 @@ services:
     # environment:
     #     BASIC_USERNAME: admin
     #     BASIC_PASSWORD: admin
+volumes:   # add this section
+  webui:
+  litellmpg: 
