@@ -3,5 +3,5 @@ FROM ollama/ollama:0.1.20
 
 ENTRYPOINT ["/bin/ollama"]
 CMD [ "pull","phi"]
-CMD[ "pull", "mixtral"]
+CMD ["pull", "mixtral"]
 CMD ["serve"]
