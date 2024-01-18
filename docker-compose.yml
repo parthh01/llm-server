@@ -46,8 +46,6 @@ services:
       - webui:/app/backend/data
     environment:
       - OPENAPI_BASE_URL:http://litellm:8000
-    ports:
-      - 8080
   nginx:
     build:
         dockerfile: Dockerfile.reverseproxy
