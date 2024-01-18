@@ -47,6 +47,8 @@ services:
     environment:
       - OPENAPI_BASE_URL:http://litellm:8000
   nginx:
+    depends_on:
+        - litellm 
     build:
         dockerfile: Dockerfile.reverseproxy
         args:
